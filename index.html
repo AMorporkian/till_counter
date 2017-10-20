@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="js/vue.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <title>Register countdown</title>
+    </head>
+    <body>
+    <div class="container">
+        <div class="col-sm">
+            <h1 class="text-center">Register Countdown</h1>
+            <hr>
+            <div id="app">
+                <form class="form-inline">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="pennies">Pennies</label>
+                            <input type="number" id="pennies" v-model.number="pennies" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="nickels">Nickels</label>
+                            <input type="number" id="nickels" v-model.number="nickels" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="dimes">Dimes</label>
+                            <input type="number" id="dimes" v-model.number="dimes" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="quarters">Quarters</label>
+                            <input type="number" id="quarters" v-model.number="quarters" placeholder="">
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <form class="form-inline">
+
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="singles">Singles</label>
+                            <input type="number" id="singles" v-model.number="singles" placeholder="">
+                        </div>
+                        <div class="col">
+                            <label for="fives">Fives</label>
+                            <input type="number" id="fives" v-model.number="fives" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="tens">Tens</label>
+                            <input type="number" id="tens" v-model.number="tens" placeholder="">
+                        </div>
+                        <div class="col">
+                            <label for="twenties">Twenties</label>
+                            <input type="number" id="twenties" v-model.number="twenties" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="fifties">Fifties</label>
+                            <input type="number" id="fifties" v-model.number="fifties" placeholder="">
+                        </div>
+                        <div class="col">
+                            <label for="hundreds">Hundreds</label>
+                            <input type="number" id="hundreds" v-model.number="hundreds" placeholder="">
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col"><h3>Total cash:</h3>
+                        <h5>{{cashTotal}}</h5></div>
+                    <div class="col"><h3>Total Change:</h3>
+                        <h5>{{changeTotal}}</h5>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">Remove</h2>
+                        <table class="table">
+                            <tr>
+                                <td>Pennies</td>
+                                <td>{{toRemove.pennies}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nickels</td>
+                                <td>{{toRemove.nickels}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dimes</td>
+                                <td>{{toRemove.dimes}}</td>
+                            </tr>
+                            <tr>
+                                <td>Quarters</td>
+                                <td>{{toRemove.quarters}}</td>
+                            </tr>
+                            <tr>
+                                <td>Singles</td>
+                                <td>{{toRemove.singles}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fives</td>
+                                <td>{{toRemove.fives}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tens</td>
+                                <td>{{toRemove.tens}}</td>
+                            </tr>
+                            <tr>
+                                <td>Twenties</td>
+                                <td>{{toRemove.twenties}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fifties</td>
+                                <td>{{toRemove.fifties}}</td>
+                            </tr>
+                            <tr>
+                                <td>Hundreds</td>
+                                <td>
+                                    {{toRemove.hundreds}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <h2 class="text-center">Remaining</h2>
+                        <table class="table">
+                            <tr>
+                                <td>Pennies</td>
+                                <td>
+                                    {{leftInTill.pennies}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nickels</td>
+                                <td>
+                                    {{leftInTill.nickels}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dimes</td>
+                                <td>
+                                    {{leftInTill.dimes}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Quarters</td>
+                                <td>
+                                    {{leftInTill.quarters}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Singles</td>
+                                <td>
+                                    {{leftInTill.singles}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fives</td>
+                                <td>
+                                    {{leftInTill.fives}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tens</td>
+                                <td>
+                                    {{leftInTill.tens}}
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+            </>
+        </div>
+    </div>
+
+    <script>
+        Number.prototype.formatMoney = function (c, d, t) {
+            var n = this,
+                c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d === undefined ? "." : d,
+                t = t === undefined ? "," : t,
+                s = n < 0 ? "-" : "",
+                i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total_count: '100.00',
+                pennies: 0,
+                nickels: 0,
+                dimes: 0,
+                quarters: 0,
+                singles: 0,
+                fives: 0,
+                tens: 0,
+                twenties: 0,
+                fifties: 0,
+                hundreds: 0
+            },
+            computed: {
+                changeTotal: function () {
+                    return "$" + this.change.formatMoney(2);
+                },
+                change: function () {
+                    return (parseInt(this.pennies) * .01 + parseInt(this.nickels) * .05 + parseInt(this.dimes) * .1 + parseInt(this.quarters) * .25);
+                },
+                cash: function () {
+                    return (parseInt(this.singles) + parseInt(this.fives) * 5 + parseInt(this.tens) * 10 + parseInt(this.twenties) * 20 + parseInt(this.fifties) * 50 + parseInt(this.hundreds) * 100);
+                },
+                cashTotal: function () {
+                    return "$" + this.cash.formatMoney(2);
+                },
+                totalCashAndChange: function () {
+                    return this.change + this.cash;
+                },
+                formatCashAndChange: function () {
+                    return "$" + this.totalCashAndChange.formatMoney();
+                },
+                leftoverChange: function () {
+                    return ((this.change * 100) % 100) / 100;
+                },
+                toRemove: function () {
+                    var toRemove = {
+                        pennies: 0,
+                        nickels: 0,
+                        dimes: 0,
+                        quarters: 0,
+                        singles: 0,
+                        fives: 0,
+                        tens: 0,
+                        twenties: this.twenties,
+                        fifties: this.fifties,
+                        hundreds: this.hundreds
+                    };
+                    if (this.totalCashAndChange < 100) {
+                        return toRemove;
+                    }
+                    var change = amountToCoins((this.change * 100) % 100);
+                    change.forEach(function (coin) {
+                        switch (coin) {
+                            case 1:
+                                toRemove.pennies++;
+                                break;
+                            case 5:
+                                toRemove.nickels++;
+                                break;
+                            case 10:
+                                toRemove.dimes++;
+                                break;
+                            case 25:
+                                toRemove.quarters++;
+                                break;
+                        }
+                    });
+                    toRemove.singles = this.singles - (40 - (this.change - this.leftoverChange));
+                    toRemove.fives = this.fives - 6;
+                    toRemove.tens = this.tens - 3;
+                    return toRemove;
+                },
+                leftInTill: function () {
+                    var remaining = {};
+                    if (this.totalCashAndChange < 100) {
+                        return remaining;
+                    }
+                    ["pennies", "nickels", "dimes", "quarters", "ones", "singles", "fives", "tens"].forEach(function (key) {
+                        remaining[key] = this[key] - this.toRemove[key];
+                    }.bind(this));
+                    return remaining;
+
+                }
+
+
+            }
+        });
+
+        function amountToCoins(amount, coins) {
+            var left;
+            if (amount === 0) {
+                return [];
+            }
+            else {
+                coins = coins || [25, 10, 5, 1];
+                if (amount >= coins[0]) {
+                    left = (amount - coins[0]);
+                    return [coins[0]].concat(amountToCoins(left, coins));
+                }
+                else {
+                    coins.shift();
+                    return amountToCoins(amount, coins);
+                }
+            }
+        }
+    </script>
+    </body>
+</html>
